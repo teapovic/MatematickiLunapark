@@ -34,12 +34,12 @@ var temaTeskoOduzimanje = 'police';
 
 app.get(['/ucimo-brojeve','/ucimo-brojeve/:tema'], function (req, res) {
     if(req.params.tema != undefined ) {
-        if(temaUcimoBrojeve == 'more') {
-            temaUcimoBrojeve = 'svemir'
-        } else if( temaUcimoBrojeve == 'svemir'){
+        if('svemir' == req.params.tema) {
             temaUcimoBrojeve = 'suma'
-        } else {
+        } else if('suma' == req.params.tema){
             temaUcimoBrojeve = 'more'
+        } else {
+            temaUcimoBrojeve = 'svemir'
         }
     }
     res.render("ucimo_brojeve", {tema: temaUcimoBrojeve});
@@ -47,12 +47,12 @@ app.get(['/ucimo-brojeve','/ucimo-brojeve/:tema'], function (req, res) {
 
 app.get(['/lagano-zbrajanje','/lagano-zbrajanje/:tema'], function (req, res) {
     if(req.params.tema != undefined ) {
-        if(temaLaganoZbrajanje == 'more') {
-            temaLaganoZbrajanje = 'svemir'
-        } else if( temaLaganoZbrajanje == 'svemir'){
+        if('svemir' == req.params.tema) {
             temaLaganoZbrajanje = 'suma'
-        } else {
+        } else if('suma' == req.params.tema){
             temaLaganoZbrajanje = 'more'
+        } else {
+            temaLaganoZbrajanje = 'svemir'
         }
     }
     res.render("lagano_zbrajanje", {tema: temaLaganoZbrajanje});
@@ -60,12 +60,12 @@ app.get(['/lagano-zbrajanje','/lagano-zbrajanje/:tema'], function (req, res) {
 
 app.get(['/lagano-oduzimanje','/lagano-oduzimanje/:tema'], function (req, res) {
     if(req.params.tema != undefined ) {
-        if(temaLaganoOduzimanje == 'more') {
-            temaLaganoOduzimanje = 'svemir'
-        } else if( temaLaganoOduzimanje == 'svemir'){
+        if('svemir' == req.params.tema) {
             temaLaganoOduzimanje = 'suma'
-        } else {
+        } else if('suma' == req.params.tema){
             temaLaganoOduzimanje = 'more'
+        } else {
+            temaLaganoOduzimanje = 'svemir'
         }
     }
     res.render("lagano_oduzimanje", {tema: temaLaganoOduzimanje});
@@ -73,10 +73,10 @@ app.get(['/lagano-oduzimanje','/lagano-oduzimanje/:tema'], function (req, res) {
 
 app.get(['/tesko-zbrajanje','/tesko-zbrajanje/:tema'], function (req, res) {
     if(req.params.tema != undefined ) {
-        if(temaTeskoZbrajanje == 'police') {
-            temaTeskoZbrajanje = 'ploca'
-        } else {
+        if('ploca' == req.params.tema) {
             temaTeskoZbrajanje = 'police'
+        } else {
+            temaTeskoZbrajanje = 'ploca'
         }
     }
     res.render("tesko_zbrajanje", {tema: temaTeskoZbrajanje});
@@ -84,10 +84,10 @@ app.get(['/tesko-zbrajanje','/tesko-zbrajanje/:tema'], function (req, res) {
 
 app.get(['/tesko-oduzimanje','/tesko-oduzimanje/:tema'], function (req, res) {
   if(req.params.tema != undefined ) {
-    if(temaTeskoOduzimanje == 'police') {
-      temaTeskoOduzimanje = 'ploca'
+    if('ploca' == req.params.tema) {
+      temaTeskoOduzimanje = 'police'
     } else {
-        temaTeskoOduzimanje = 'police'
+      temaTeskoOduzimanje = 'ploca'
     }
   }
   res.render("tesko_oduzimanje", {tema: temaTeskoOduzimanje});
