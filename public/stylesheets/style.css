@@ -1,3 +1,10 @@
+@font-face {
+  font-family:"Heavitas2";
+  src: url('Heavitas.ttf')  format('truetype'),
+        url('Heavitas.woff') format('woff'),
+        url('Heavitas.woff2') format('woff2');
+  /* TTF file for CSS3 browsers */
+}
 body {
   padding: 0px;
   margin: 0px;
@@ -9,7 +16,10 @@ body {
 a {
   color: #00B7FF;
 }
-
+.pomocni {
+  font-family: Heavitas2;
+  font-size: 0px;
+}
 .pozadina{
   background-image: url("../images/pozadina.png");
   background-size: cover;
