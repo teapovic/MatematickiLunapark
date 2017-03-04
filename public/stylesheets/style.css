@@ -5,6 +5,12 @@
         url('Heavitas.woff2') format('woff2');
   /* TTF file for CSS3 browsers */
 }
+@font-face {
+  font-family:"NoMoreLies";
+  src: url('NoMoreLies.ttf')  format('truetype'),
+  url('NoMoreLies.woff') format('woff');
+  /* TTF file for CSS3 browsers */
+}
 body {
   padding: 0px;
   margin: 0px;
@@ -18,6 +24,11 @@ a {
 }
 .pomocni {
   font-family: Heavitas2;
+  font-size: 0px;
+}
+
+.pomocni2 {
+  font-family: NoMoreLies;
   font-size: 0px;
 }
 .pozadina{
@@ -48,7 +59,7 @@ a {
 }
 
 .navbar_game{
-  left: 30px;
+  margin-left: 20%;
   top: 0;
-  width: 12%;
+  width: 15%;
 }

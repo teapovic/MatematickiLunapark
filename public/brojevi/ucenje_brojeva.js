@@ -1,7 +1,7 @@
 /**
  * Created by Bruna on 24.5.2016..
  */
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'brojevi', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'ucimoBrojeve', { preload: preload, create: create, update: update });
 var tema = document.currentScript.getAttribute('tema');
 var ukupnoElemenata = 0;
 function preload() {

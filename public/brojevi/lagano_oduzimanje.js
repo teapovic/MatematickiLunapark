@@ -1,7 +1,7 @@
 /**
  * Created by Bruna on 24.5.2016..
  */
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'zbroj', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'laganoOduzimanje', { preload: preload, create: create, update: update });
 var ukupnoElemenata = 0;
 var tema = document.currentScript.getAttribute('tema');
 function preload() {

@@ -4,28 +4,23 @@
 /**
  * Created by Bruna on 24.5.2016..
  */
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'hczbroj', { preload: preload, create: create, update: update });
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'teskoZbrajanje', { preload: preload, create: create, update: update });
+var tema = document.currentScript.getAttribute('tema');
 
 function preload() {
 
-    
-    game.load.image('ground', '../public/Bruna/assets/platform.png');
-    game.load.image('1', '../public/Bruna/assets/1.png');
-    game.load.image('2', '../public/Bruna/assets/2.png');
-    game.load.image('3', '../public/Bruna/assets/3.png');
-    game.load.image('4', '../public/Bruna/assets/4.png');
-    game.load.image('5', '../public/Bruna/assets/5.png');
-    game.load.image('6', '../public/Bruna/assets/6.png');
-    game.load.image('7', '../public/Bruna/assets/7.png');
-    game.load.image('8', '../public/Bruna/assets/8.png');
-    game.load.image('9', '../public/Bruna/assets/9.png');
-    game.load.image('10', '../public/Bruna/assets/10.png');
-    game.load.image('star','../public/Bruna/assets/star.png');
-    game.load.image('pozadina','../public/Bruna/assets/pozadina.jpg');
-    game.load.image('kraj','../public/Bruna/assets/kraj.jpg');
-    game.load.image('plus','../public/Bruna/assets/plus.png');
-    game.load.image('jednako','../public/Bruna/assets/jednako.png');
-
+    game.load.image('ground', '../public/nav/razmak.png');
+    game.load.image('1', '../public/nav/'+ tema +'/broj_1.png');
+    game.load.image('2', '../public/nav/'+ tema +'/broj_2.png');
+    game.load.image('3', '../public/nav/'+ tema +'/broj_3.png');
+    game.load.image('4', '../public/nav/'+ tema +'/broj_4.png');
+    game.load.image('5', '../public/nav/'+ tema +'/broj_5.png');
+    game.load.image('6', '../public/nav/'+ tema +'/broj_6.png');
+    game.load.image('7', '../public/nav/'+ tema +'/broj_7.png');
+    game.load.image('8', '../public/nav/'+ tema +'/broj_8.png');
+    game.load.image('9', '../public/nav/'+ tema +'/broj_9.png');
+    game.load.image('10', '../public/nav/'+ tema +'/broj_10.png');
+    game.load.image('pozadina','../public/nav/'+ tema +'/pozadina.png');
 }
 
 var platforms;
@@ -33,87 +28,84 @@ var padalice;
 var zvijezde=[];
 var brojevi=[];
 var rez=[];
-var boje=[0xf2a3bd,0xd6d963,0x6fe7db,0xc4adc9, 0xfad48b, 0xf5f9ad, 0xbcdf8a, 0x94c0cc];
 
 function create() {
-    //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    //  A simple background for our game
-    game.stage.backgroundColor = "#f9f9ac";
     game.add.sprite(0, 0, 'pozadina');
 
-    //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
-
-    //  We will enable physics for any object that is created in this group
     platforms.enableBody = true;
 
-    var ground = platforms.create(0, game.world.height - 27, 'kraj');
+    var ground = platforms.create(0, game.world.height - 15, 'ground');
+    ground.scale.setTo(2.5, 1.5);
     ground.body.immovable = true;
+
+    if( tema == 'police') {
+        ground = platforms.create(0, game.world.height - 105, 'ground');
+        ground.scale.setTo(2.5, 1.5);
+        ground.body.immovable = true;
+    } else {
+        ground = platforms.create(0, game.world.height - 38, 'ground');
+        ground.scale.setTo(2.5, 1.5);
+        ground.body.immovable = true;
+    }
 
     generirajBrojeve();
 
     padalice=game.add.group();
     padalice.enableBody=true;
-    var color=boje[parseInt((Math.random()*10)%4,10)];
+
     for (var i = 1; i <= 10; i++)
     {
-        //  Create a star inside of the 'stars' group
-        var star = padalice.create(i * 70, 0, String(i));
+        var star;
+        if(tema == 'police' && i == 10) {
+            star = padalice.create(11 * 60, game.world.height - 110, String(i));
+        } else {
+            star = padalice.create(i * 60 + ((tema == 'police' && i % 2 == 1) ? 0 : 15), game.world.height - ((tema == 'police' && i % 2 == 1) ? 110 : 250), String(i));
+        }
         star.name = i;
-        star.scale.setTo(1.5,1.5);
-        star.tint=color;
-        // Enable input detection, then it's possible be dragged.
         star.inputEnabled = true;
         star.body.collideWorldBounds=true;
-        // Make this item draggable.
+
         star.input.enableDrag();
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.3 + Math.random() * 0.2;
-        star.events.onDragStop.add(dropHandler, this);
+        star.body.gravity.y = 3000;
         zvijezde.push(star);
     }
 
     var ledge;
+    var s;
     setTimeout(function(){
         //  Now let's create two ledges
+        var stylePloca = { font: "68px NoMoreLies",fontWeight:'bold', fill: '#FFC5FF', align: "center" };
+        var stylePolica = {font: "68px Heavitas2",fontWeight:'bold', fill: '#FFFCD5', align: "center"}
 
+        var style = stylePloca;
+        var podigni = 0;
+        if( tema == 'police') {
+            console.log('tu sam');
+            style = stylePolica;
+            podigni = 35;
+        }
+        s=game.add.text(135 + ((brojevi[0]!=10)?20:0), 65 - podigni ,brojevi[0] + ' + ' + brojevi[1], style);
+        s=game.add.text(335, 65 - podigni ,' =', style);
 
-        s=game.add.sprite(100, 135, String(brojevi[0]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(200,150,'plus');
-        s=game.add.sprite(300, 135, String(brojevi[1]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(400,155,'jednako');
-        ledge = platforms.create(500, 180, 'ground');
-        ledge.scale.setTo(0.5,0.2);
+        ledge = platforms.create(340, 125 - podigni*0.3, 'ground');
         ledge.body.immovable = true;
 
-        
-        s=game.add.sprite(100, 235, String(brojevi[2]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(200,250,'plus');
-        s=game.add.sprite(300, 235, String(brojevi[3]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(400,255,'jednako');
-        ledge = platforms.create(500, 280, 'ground');
-        ledge.scale.setTo(0.5,0.2);
+        s=game.add.text(135 + ((brojevi[2]!=10)?20:0), 175 - podigni*0.4 ,brojevi[2] + ' + ' + brojevi[3], style);
+        s=game.add.text(335, 175 - podigni*0.4 ,' =', style);
+
+        ledge = platforms.create(340, 235 + podigni*0.4 , 'ground');
         ledge.body.immovable = true;
 
-     
-        s=game.add.sprite(100, 335, String(brojevi[4]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(200,350,'plus');
-        s=game.add.sprite(300, 335, String(brojevi[5]));
-        s.scale.setTo(1.5,1.5);
-        game.add.sprite(400,355,'jednako');
-        ledge = platforms.create(500, 380, 'ground');
-        ledge.scale.setTo(0.5,0.2);
+        s=game.add.text(135 + ((brojevi[4]!=10)?20:0), 285 + podigni*0.3 ,brojevi[4] + ' + ' + brojevi[5], style);
+        s=game.add.text(335, 285 + podigni*0.3 ,' =', style);
+
+        ledge = platforms.create(340, 345 + podigni, 'ground');
         ledge.body.immovable = true;
-    },2000);
+
+    },1000);
 
 }
 
@@ -123,11 +115,6 @@ function update() {
     game.physics.arcade.collide(padalice, platforms);
 
 }
-
-function dropHandler(item, pointer) {
-
-}
-
 function generirajBrojeve() {
 
     var p;
@@ -157,15 +144,15 @@ function  myFunction() {
     var tocni=0;
     var style = { font: "40px Arial",fontWeight:'bold', fill: "#fff", align: "center" };
     padalice.forEach(function(item) {
-        if (item.x >= 400 && item.x <= 700 && item.y <= 180) {
+        if (item.x >= 320  && item.y <= 150) {
             prvi=item.name;
             br1++;
         }
-        else if (item.x >= 400 && item.x <= 700 && item.y >= 175 && item.y<=270) {
+        else if (item.x >= 320 && item.y >= 150 && item.y<=270) {
             drugi=item.name;
             br2++;
         }
-        else if (item.x >= 400 && item.x <= 700 && item.y>=285 && item.y <= 370) {
+        else if (item.x >= 320 && item.y>=270 && item.y <= 370) {
             treci=item.name;
             br3++;
         }
@@ -200,15 +187,15 @@ function  myFunction() {
         boja3=0x07c507;
     }
     padalice.forEach(function(item) {
-        if (item.x >= 400 && item.x <= 700 && item.y <= 180) {
+        if (item.x >= 320  && item.y <= 150)  {
             item.input.disableDrag();
             item.tint = boja1;
         }
-        else if (item.x >= 400 && item.x <= 700 && item.y >= 175 && item.y<=270) {
+        else if (item.x >= 320 && item.y >= 150 && item.y<=270) {
             item.input.disableDrag();
             item.tint = boja2;
         }
-        else if (item.x >= 400 && item.x <= 700 && item.y>=285 && item.y <= 370) {
+        else if (item.x >= 320 && item.y>=270 && item.y <= 370) {
             item.input.disableDrag();
             item.tint=boja3;
         }
@@ -224,6 +211,5 @@ function  myFunction() {
         game.add.text(35,65,"0",style);
     }
 
-    $("#rjesenje").prop('disabled',true);
-    $.post('spremiRezRacunanje',{racunanje:  tocni});
+    //$("#rjesenje").prop('disabled',true);
 }
