@@ -31,3 +31,14 @@ a {
   bottom: 0;
   width: 12%;
 }
+
+.igra {
+  margin-top: 0 !important;
+  margin-left: 15% !important;
+}
+
+.navbar_game{
+  left: 30px;
+  top: 0;
+  width: 12%;
+}

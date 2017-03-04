@@ -85,9 +85,9 @@ app.get(['/tesko-zbrajanje','/tesko-zbrajanje/:tema'], function (req, res) {
 app.get(['/tesko-oduzimanje','/tesko-oduzimanje/:tema'], function (req, res) {
   if(req.params.tema != undefined ) {
     if('ploca' == req.params.tema) {
-      temaTeskoOduzimanje = 'police'
+        temaTeskoOduzimanje = 'police'
     } else {
-      temaTeskoOduzimanje = 'ploca'
+        temaTeskoOduzimanje = 'ploca'
     }
   }
   res.render("tesko_oduzimanje", {tema: temaTeskoOduzimanje});

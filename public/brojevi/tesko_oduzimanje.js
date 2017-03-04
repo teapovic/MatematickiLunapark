@@ -1,25 +1,25 @@
 /**
  * Created by Bruna on 26.5.2016..
  */
-
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'hcminus', { preload: preload, create: create, update: update });
+var tema = document.currentScript.getAttribute('tema');
 
 function preload() {
 
-    
+    console.log(tema);
     game.load.image('ground', '../public/Bruna/assets/platform.png');
-    game.load.image('1', '../public/Bruna/assets/1.png');
-    game.load.image('2', '../public/Bruna/assets/2.png');
-    game.load.image('3', '../public/Bruna/assets/3.png');
-    game.load.image('4', '../public/Bruna/assets/4.png');
-    game.load.image('5', '../public/Bruna/assets/5.png');
-    game.load.image('6', '../public/Bruna/assets/6.png');
-    game.load.image('7', '../public/Bruna/assets/7.png');
-    game.load.image('8', '../public/Bruna/assets/8.png');
-    game.load.image('9', '../public/Bruna/assets/9.png');
-    game.load.image('10', '../public/Bruna/assets/10.png');
+    game.load.image('1', '../public/nav/'+ tema +'/broj_1.png');
+    game.load.image('2', '../public/nav/'+ tema +'/broj_2.png');
+    game.load.image('3', '../public/nav/'+ tema +'/broj_3.png');
+    game.load.image('4', '../public/nav/'+ tema +'/broj_4.png');
+    game.load.image('5', '../public/nav/'+ tema +'/broj_5.png');
+    game.load.image('6', '../public/nav/'+ tema +'/broj_6.png');
+    game.load.image('7', '../public/nav/'+ tema +'/broj_7.png');
+    game.load.image('8', '../public/nav/'+ tema +'/broj_8.png');
+    game.load.image('9', '../public/nav/'+ tema +'/broj_9.png');
+    game.load.image('10', '../public/nav/'+ tema +'/broj_10.png');
     game.load.image('star','../public/Bruna/assets/star.png');
-    game.load.image('pozadina','../public/Bruna/assets/pozadina.jpg');
+    game.load.image('pozadina','../public/nav/'+ tema +'/pozadina.png');
     game.load.image('kraj','../public/Bruna/assets/kraj.jpg');
     game.load.image('minus','../public/Bruna/assets/minus.png');
     game.load.image('jednako','../public/Bruna/assets/jednako.png');
