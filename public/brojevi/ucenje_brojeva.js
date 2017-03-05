@@ -1,16 +1,12 @@
-/**
- * Created by Bruna on 24.5.2016..
- */
 var game = new Phaser.Game(800, 600, Phaser.AUTO, 'ucimoBrojeve', { preload: preload, create: create, update: update });
 var tema = document.currentScript.getAttribute('tema');
 var ukupnoElemenata = 0;
+
 function preload() {
     game.load.image('ball', '../public/nav/'+ tema +'/element_ucimo.png');
    // game.load.image('star','../public/Bruna/assets/star.png');
     game.load.image('oblak','../public/nav/razmak.png');
-
     game.load.image('pozadina','../public/nav/'+ tema +'/pozadina_ucimo.png');
-
 }
 
 var platforms;
@@ -18,18 +14,14 @@ var padalice;
 var zvijezde=[];
 var lokacije = new Map();
 var brojevi=[];
-function create() {
 
-    //  We're going to be using physics, so enable the Arcade Physics system
+function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.add.sprite(0, 0, 'pozadina');
 
-    //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
-
-    //  We will enable physics for any object that is created in this group
     platforms.enableBody = true;
-    // Here we create the ground.
+
     var ground = platforms.create(0, game.world.height - 15, 'oblak');
     ground.scale.setTo(2.5, 1.5);
     ground.body.immovable = true;
@@ -70,8 +62,6 @@ function create() {
 
     }
     var ledge;
-    setTimeout(function(){
-        //  Now let's create two ledges
         ledge = platforms.create(300, 340, 'oblak');
         ledge.body.immovable = true;
 
@@ -94,21 +84,13 @@ function create() {
         lokacije.set(1,s.text);
         dijamanti=game.add.group();
         dijamanti.enableBody=true;
-
-    },1000);
-
-
 }
 
 function dropHandler(item, pointer) {
-
 }
 
 function update() {
-
-    //  Collide the player and the stars with the platforms
     game.physics.arcade.collide(padalice, platforms);
-
 }
 
 function  myFunction() {
