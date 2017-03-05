@@ -1,16 +1,15 @@
 /**
  * Created by Bruna on 24.5.2016..
  */
-var game = new Phaser.Game(800, 600, Phaser.AUTO, 'brojevi', { preload: preload, create: create, update: update });
-
+var game = new Phaser.Game(800, 600, Phaser.AUTO, 'ucimoBrojeve', { preload: preload, create: create, update: update });
+var tema = document.currentScript.getAttribute('tema');
+var ukupnoElemenata = 0;
 function preload() {
+    game.load.image('ball', '../public/nav/'+ tema +'/element_ucimo.png');
+   // game.load.image('star','../public/Bruna/assets/star.png');
+    game.load.image('oblak','../public/nav/razmak.png');
 
-    
-    game.load.image('ground', '../public/Bruna/assets/platform.png');
-    game.load.image('ball', '../public/Bruna/assets/ptica.png');
-    game.load.image('star','../public/Bruna/assets/star.png');
-    game.load.image('oblak','../public/Bruna/assets/oblak.png');
-    game.load.image('sunce','../public/Bruna/assets/sunce.png');
+    game.load.image('pozadina','../public/nav/'+ tema +'/pozadina_ucimo.png');
 
 }
 
@@ -23,9 +22,7 @@ function create() {
 
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(400, 0, 'sunce');
-    //  A simple background for our game
-    game.stage.backgroundColor = "#9bd6ff";
+    game.add.sprite(0, 0, 'pozadina');
 
     //  The platforms group contains the ground and the 2 ledges we can jump on
     platforms = game.add.group();
@@ -33,42 +30,41 @@ function create() {
     //  We will enable physics for any object that is created in this group
     platforms.enableBody = true;
     // Here we create the ground.
-    var ground = platforms.create(0, game.world.height - 32, 'ground');
-
-    //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    ground.scale.setTo(2, 1);
-
-    //  This stops it from falling away when you jump on it
+    var ground = platforms.create(0, game.world.height - 15, 'oblak');
+    ground.scale.setTo(2.5, 1.5);
     ground.body.immovable = true;
-    ground.tint=0x01c301;
+
+    ground = platforms.create(0, game.world.height - 80, 'oblak');
+    ground.scale.setTo(2.5, 1.5);
+    ground.body.immovable = true;
 
     brojevi.push(game.rnd.integerInRange(1,10));
+    ukupnoElemenata += brojevi[0];
     for(var i=0;i<2;i++) {
         do {
             p = game.rnd.integerInRange(1, 10);
         } while (brojevi.indexOf(p) != -1);
         brojevi.push(p);
+        ukupnoElemenata += p;
     }
     console.log(brojevi);
 
 
     padalice=game.add.group();
     padalice.enableBody=true;
-    for (var i = 0; i < 27; i++)
+    for (var i = 0; i < ukupnoElemenata; i++)
     {
         //  Create a star inside of the 'stars' group
-        var star = padalice.create(i * 30, 0, 'ball');
+        var star = padalice.create(10 + i * (35 + (11/(ukupnoElemenata/2) - 1)*25 ) + ((i % 2 == 0)?0:15), game.world.height - ((i % 2 == 0)?80:150), 'ball');
         star.name = 'star' + i;
         // Enable input detection, then it's possible be dragged.
         star.inputEnabled = true;
         star.body.collideWorldBounds=true;
         // Make this item draggable.
         star.input.enableDrag();
-        //  Let gravity do its thing
-        star.body.gravity.y = 300;
-        star.scale.setTo(0.12, 0.12);
-        //  This just gives each star a slightly random bounce value
-        star.body.bounce.y = 0.3 + Math.random() * 0.2;
+
+        star.body.gravity.y = 3000;
+
         star.events.onDragStop.add(dropHandler, this);
         zvijezde.push(star);
 
@@ -76,25 +72,30 @@ function create() {
     var ledge;
     setTimeout(function(){
         //  Now let's create two ledges
-        ledge = platforms.create(400, 400, 'oblak');
+        ledge = platforms.create(300, 340, 'oblak');
         ledge.body.immovable = true;
 
-        var style = { font: "40px Arial",fontWeight:'bold', fill: "#000033", align: "center" };
-        s=game.add.text(600, 405,brojevi[0],style);
+        var fill = '#FFFFFF';
+        if(tema == 'svemir' || tema == 'more') {
+            fill = '#21409A';
+        }
+        var style = { font: "66px Heavitas2",fontWeight:'bold', fill: fill, align: "left" };
+        s=game.add.text(225- ((brojevi[0] == 10)?17:0), 280,brojevi[0],style);
         lokacije.set(3,s.text);
-        ledge = platforms.create(200, 255, 'oblak');
+        ledge = platforms.create(0, 230, 'oblak');
         ledge.body.immovable = true;
 
-        s=game.add.text(400, 258,brojevi[1],style);
+        s=game.add.text(530-((brojevi[1]== 10)?17:0), 175,brojevi[1],style);
         lokacije.set(2,s.text);
-        ledge = platforms.create(0, 100, 'oblak');;
+        ledge = platforms.create(300, 120, 'oblak');;
         ledge.body.immovable = true;
 
-        s=game.add.text(200, 105,brojevi[2],style);
+        s=game.add.text(225 - ((brojevi[2]== 10)?17:0), 60,brojevi[2],style);
         lokacije.set(1,s.text);
         dijamanti=game.add.group();
         dijamanti.enableBody=true;
-    },3000);
+
+    },1000);
 
 
 }
@@ -117,22 +118,16 @@ function  myFunction() {
     var treci=0;
     var tocni=0;
     padalice.forEach(function(item) {
-        if ((item.y >100 && item.y<=270 && item.x>=150 && item.x<=400)||(item.y<=270 && item.x>=400 && item.x<600))
+        if (item.y >100 && item.y<=270 && item.x<=530)
         {
             drugi++;
-            // item.tint=0x2ca52c;
-            // console.log("na prvoj "+item.name);
         }
-        else if ((item.y <=430 && item.y>=220 && item.x<=600 && item.x>=300)||(item.y<=430 && item.x>=600))
+        else if (item.y <=430 && item.y>=220 && item.x>=225)
         {
             treci++;
-            // item.tint=0xd22424;
-             //console.log("na drugoj "+item.name);
         }
-        else if(item.y<=100 && item.x<=400){
+        else if(item.y<=100 && item.x>=225){
             prvi++;
-            // item.tint=0x0000FF;
-            // console.log("na trecon"+item.name);
         }
     });
     var boja1;
@@ -160,17 +155,17 @@ function  myFunction() {
         tocni++;
     }
     padalice.forEach(function(item) {
-        if ((item.y >100 && item.y<=270 && item.x>=150 && item.x<=400)||(item.y<=270 && item.x>=400 && item.x<600))
+        if (item.y >100 && item.y<=270 && item.x<=530)
         {
             item.input.disableDrag();
             item.tint=boja2;
         }
-        else if ((item.y <=430 && item.y>=220 && item.x<=600 && item.x>=300)||(item.y<=430 && item.x>=600))
+        else if (item.y <=430 && item.y>=220 && item.x>=225)
         {
             item.input.disableDrag();
             item.tint=boja3;
         }
-        else if(item.y<=100 && item.x<=400){
+        else if(item.y<=100 && item.x>=225){
             item.input.disableDrag();
             item.tint=boja1;
         }
@@ -185,6 +180,5 @@ function  myFunction() {
     if(tocni==0){
         game.add.text(0,30,"0");
     }
-    $("#rjesenje").prop('disabled',true);
-    $.post('spremiRezRacunanje',{racunanje:  tocni});
+    //$("#rjesenje").prop('disabled',true);
 }

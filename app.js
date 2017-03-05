@@ -25,8 +25,73 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', function (req, res) {
   res.render('home');
 });
+var temaUcimoBrojeve = 'more';
+var temaLaganoOduzimanje = 'more';
+var temaLaganoZbrajanje = 'more';
+var temaTeskoZbrajanje = 'police';
+var temaTeskoOduzimanje = 'police';
 
 
+app.get(['/ucimo-brojeve','/ucimo-brojeve/:tema'], function (req, res) {
+    if(req.params.tema != undefined ) {
+        if('svemir' == req.params.tema) {
+            temaUcimoBrojeve = 'suma'
+        } else if('suma' == req.params.tema){
+            temaUcimoBrojeve = 'more'
+        } else {
+            temaUcimoBrojeve = 'svemir'
+        }
+    }
+    res.render("ucimo_brojeve", {tema: temaUcimoBrojeve});
+});
+
+app.get(['/lagano-zbrajanje','/lagano-zbrajanje/:tema'], function (req, res) {
+    if(req.params.tema != undefined ) {
+        if('svemir' == req.params.tema) {
+            temaLaganoZbrajanje = 'suma'
+        } else if('suma' == req.params.tema){
+            temaLaganoZbrajanje = 'more'
+        } else {
+            temaLaganoZbrajanje = 'svemir'
+        }
+    }
+    res.render("lagano_zbrajanje", {tema: temaLaganoZbrajanje});
+});
+
+app.get(['/lagano-oduzimanje','/lagano-oduzimanje/:tema'], function (req, res) {
+    if(req.params.tema != undefined ) {
+        if('svemir' == req.params.tema) {
+            temaLaganoOduzimanje = 'suma'
+        } else if('suma' == req.params.tema){
+            temaLaganoOduzimanje = 'more'
+        } else {
+            temaLaganoOduzimanje = 'svemir'
+        }
+    }
+    res.render("lagano_oduzimanje", {tema: temaLaganoOduzimanje});
+});
+
+app.get(['/tesko-zbrajanje','/tesko-zbrajanje/:tema'], function (req, res) {
+    if(req.params.tema != undefined ) {
+        if('ploca' == req.params.tema) {
+            temaTeskoZbrajanje = 'police'
+        } else {
+            temaTeskoZbrajanje = 'ploca'
+        }
+    }
+    res.render("tesko_zbrajanje", {tema: temaTeskoZbrajanje});
+});
+
+app.get(['/tesko-oduzimanje','/tesko-oduzimanje/:tema'], function (req, res) {
+  if(req.params.tema != undefined ) {
+    if('ploca' == req.params.tema) {
+        temaTeskoOduzimanje = 'police'
+    } else {
+        temaTeskoOduzimanje = 'ploca'
+    }
+  }
+  res.render("tesko_oduzimanje", {tema: temaTeskoOduzimanje});
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

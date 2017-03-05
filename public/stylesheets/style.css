@@ -1,3 +1,16 @@
+@font-face {
+  font-family:"Heavitas2";
+  src: url('Heavitas.ttf')  format('truetype'),
+        url('Heavitas.woff') format('woff'),
+        url('Heavitas.woff2') format('woff2');
+  /* TTF file for CSS3 browsers */
+}
+@font-face {
+  font-family:"NoMoreLies";
+  src: url('NoMoreLies.ttf')  format('truetype'),
+  url('NoMoreLies.woff') format('woff');
+  /* TTF file for CSS3 browsers */
+}
 body {
   padding: 0px;
   margin: 0px;
@@ -10,7 +23,15 @@ body {
 a {
   color: #00B7FF;
 }
+.pomocni {
+  font-family: Heavitas2;
+  font-size: 0px;
+}
 
+.pomocni2 {
+  font-family: NoMoreLies;
+  font-size: 0px;
+}
 .pozadina{
   background-image: url("../images/pozadina.png");
   background-size: cover;
@@ -28,7 +49,18 @@ a {
 
 .navbar_image {
   position: absolute;
-  left: 20px;
+  left: 30px;
   bottom: 0;
-  width: 13%;
+  width: 12%;
+}
+
+.igra {
+  margin-top: 0 !important;
+  margin-left: 15% !important;
+}
+
+.navbar_game{
+  margin-left: 20%;
+  top: 0;
+  width: 15%;
 }
