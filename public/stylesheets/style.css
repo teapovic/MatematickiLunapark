@@ -60,15 +60,20 @@ a {
   bottom: 0;
   width: 12%;
 }
+
 .igra {
   margin-top: 3% !important;
   margin-left: 22% !important;
   width: 800px !important;
   height: 90%;
+  position: absolute;
+  left: 7%
 }
+
 .konzola{
   width: 75%;
 }
+
 .navbar_game{
   height: 8%;
 }

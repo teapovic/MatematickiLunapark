@@ -14,6 +14,8 @@ function preload() {
     game.load.image('9', '../public/nav/' + tema + '/broj_9.png');
     game.load.image('10', '../public/nav/' + tema + '/broj_10.png');
     game.load.image('pozadina', '../public/nav/' + tema + '/pozadina.png');
+    game.load.spritesheet('netocno', '../public/nav/netocno.png', 165, 165, 8);
+    game.load.spritesheet('tocno', '../public/nav/tocno.png', 165, 165, 8);
 }
 
 var platforms;
@@ -73,7 +75,6 @@ function create() {
     var style = stylePloca;
     var podigni = 0;
     if (tema == 'police') {
-        console.log('tu sam');
         style = stylePolica;
         podigni = 35;
     }
@@ -115,85 +116,67 @@ function generirajBrojeve() {
         brojevi[i] = p;
         brojevi[i + 1] = q;
     }
-    console.log(rez);
 }
 
-function myFunction() {
-    var prvi = 0;
+var prviGif;
+var drugiGif;
+var treciGif;
+
+function rezultat() {
+    if (prviGif != undefined) prviGif.destroy();
+    if (drugiGif != undefined) drugiGif.destroy();
+    if (treciGif != undefined) treciGif.destroy();
+
+    var prviRezultat = 0;
+    var drugiRezultat = 0;
+    var treciRezultat = 0;
     var br1 = 0;
-    var drugi = 0;
     var br2 = 0;
-    var treci = 0;
     var br3 = 0;
-    var tocni = 0;
+
     var style = {font: "40px Arial", fontWeight: 'bold', fill: "#fff", align: "center"};
+
     padalice.forEach(function (item) {
         if (item.x >= 320 && item.y <= 150) {
-            prvi = item.name;
+            prviRezultat = item.name;
             br1++;
         }
         else if (item.x >= 320 && item.y >= 150 && item.y <= 270) {
-            drugi = item.name;
+            drugiRezultat = item.name;
             br2++;
         }
         else if (item.x >= 320 && item.y >= 270 && item.y <= 370) {
-            treci = item.name;
+            treciRezultat = item.name;
             br3++;
         }
+        item.input.disableDrag();
     });
 
-    console.log(prvi);
-    console.log(drugi);
-    console.log(treci);
-    console.log(rez);
-    var boja1;
-    var boja2;
-    var boja3;
-    if (rez[0] != prvi || br1 != 1) {
-        boja1 = 0xe11818;
+    if (prviRezultat == rez[0] && br1 == 1) {
+        prviGif = game.add.sprite(630, 10, 'tocno');
     }
     else {
-        tocni++;
-        boja1 = boja1 = 0x07c507;
+        prviGif = game.add.sprite(630, 10, 'netocno');
     }
-    if (rez[1] != drugi || br2 != 1) {
-        boja2 = 0xe11818;
-    }
-    else {
-        tocni++;
-        boja2 = 0x07c507;
-    }
-    if (rez[2] != treci || br3 != 1) {
-        boja3 = 0xe11818;
+    if (drugiRezultat == rez[1] && br2 == 1) {
+        drugiGif = game.add.sprite(630, 140, 'tocno');
     }
     else {
-        tocni++;
-        boja3 = 0x07c507;
+        drugiGif = game.add.sprite(630, 140, 'netocno');
     }
-    padalice.forEach(function (item) {
-        if (item.x >= 320 && item.y <= 150) {
-            item.input.disableDrag();
-            item.tint = boja1;
-        }
-        else if (item.x >= 320 && item.y >= 150 && item.y <= 270) {
-            item.input.disableDrag();
-            item.tint = boja2;
-        }
-        else if (item.x >= 320 && item.y >= 270 && item.y <= 370) {
-            item.input.disableDrag();
-            item.tint = boja3;
-        }
-        else {
-            item.input.disableDrag();
-        }
-    });
-    game.add.text(35, 25, "Rezultat: ", style);
-    for (var i = 0; i < tocni; i++) {
-        game.add.sprite(i * 40 + 35, 65, 'star');
+    if (treciRezultat == rez[2] && br3 == 1) {
+        treciGif = game.add.sprite(630, 270, 'tocno');
     }
-    if (tocni == 0) {
-        game.add.text(35, 65, "0", style);
+    else {
+        treciGif = game.add.sprite(630, 270, 'netocno');
     }
 
-    //$("#rjesenje").prop('disabled',true);
+    prviGif.animations.add('slide');
+    prviGif.animations.play('slide', 10, false);
+
+    drugiGif.animations.add('slide');
+    drugiGif.animations.play('slide', 10, false);
+
+    treciGif.animations.add('slide');
+    treciGif.animations.play('slide', 10, false);
 }
