@@ -1,3 +1,26 @@
+<div class="modal fade" tabindex="-1" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Učimo brojeve :)</h4>
+            </div>
+            <div class="modal-body">
+                Pomozi ptičicama da polete!
+                <img src="../public/nav/{{tema}}/element_zbrajanje.png" width="50" height="50" style="display: inline"/>
+                <br/>
+                Svaki oblak na sebi ima napisan broj.
+                <img src="../public/nav/{{tema}}/element_zbrajanje.png" width="120" height="40" style="display: inline;"/><br/>
+                Odvuci odgovarajući broj ptičica na svaki oblak.
+                Kada si gotov pritisni zeleni gumb na dnu ekrana.
+                <img src="../public/nav/{{tema}}/element_zbrajanje.png" width="60" height="25"/>
+                <p>Ptičice će se obojati razlićite boje kako bi znao što si točno riješio.</p>
+                <img src="../public/nav/{{tema}}/element_zbrajanje.png" width="400" height="300" style="margin-left: 10%"/>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
 <img class="navbar_image" src="../public/nav/smedji/stup.png">
 <a href="/ucimo-brojeve"><img class="navbar_image" src="../public/nav/smedji/ucimo_brojeve.png" onmouseover="this.src='../public/nav/smedji/ucimo_brojeve_hover.png'" onmouseout="this.src='../public/nav/smedji/ucimo_brojeve.png'"/></a>
 <a href="/lagano-zbrajanje"><img class="navbar_image" src="../public/nav/{{tema}}/lagano_zbrajanje.png" /></a>
@@ -6,11 +29,14 @@
 <a href="/tesko-oduzimanje"><img class="navbar_image" src="../public/nav/smedji/tesko_oduzimanje.png" onmouseover="this.src='../public/nav/smedji/tesko_oduzimanje_hover.png'" onmouseout="this.src='../public/nav/smedji/tesko_oduzimanje.png'"/></a>
 <img class="navbar_image" src="../public/nav/smedji/stup_kraj.png">
 
-<a href="/lagano-zbrajanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
-
 <script tema={{tema}} src="../public/brojevi/lagano_zbrajanje.js"></script>
 <div class="igra">
+    <a href="/lagano-zbrajanje"><img class="navbar_game" src="../public/nav/{{tema}}/igraj_ponovno.png"></a>
+    <a href="/lagano-zbrajanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
 
+
+    <a data-toggle="modal" data-target="#myModal"><img class="navbar_game" style="float:right" id="upute" src="../public/nav/{{tema}}/upute.png"> </a>
     <div class="konzola" id="laganoZbrajanje"></div>
-    <button type="button" class="btn btn-success predaj" onclick="myFunction()" id="rjesenje">PROVJERI</button>
+    <input class="navbar_game" type="image" src="../public/nav/{{tema}}/provjeri_rezultat.png" onclick="myFunction()" />
 </div>
+

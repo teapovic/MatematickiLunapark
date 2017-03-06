@@ -7,11 +7,13 @@
 <a href="/tesko-oduzimanje"><img class="navbar_image" src="../public/nav/{{tema}}/tesko_oduzimanje.png"/></a>
 <img class="navbar_image" src="../public/nav/smedji/stup_kraj.png">
 
-<a href="/tesko-oduzimanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
-
 <script tema={{tema}} src="../public/brojevi/tesko_oduzimanje.js"></script>
 <div class="igra">
+    <a href="/tesko-oduzimanje"><img class="navbar_game" src="../public/nav/{{tema}}/igraj_ponovno.png"></a>
+    <a href="/tesko-oduzimanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
+
+    <a data-toggle="modal" data-target="#myModal"><img class="navbar_game" style="float:right" id="upute" src="../public/nav/{{tema}}/upute.png"> </a>
 
     <div class="konzola" id="teskoOduzimanje"></div>
-    <button type="button" class="btn btn-success predaj" onclick="myFunction()" id="rjesenje">PROVJERI</button>
+    <input class="navbar_game" type="image" src="../public/nav/{{tema}}/provjeri_rezultat.png" onclick="myFunction()" />
 </div>

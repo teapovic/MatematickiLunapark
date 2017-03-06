@@ -6,11 +6,13 @@
 <a href="/tesko-oduzimanje"><img class="navbar_image" src="../public/nav/smedji/tesko_oduzimanje.png" onmouseover="this.src='../public/nav/smedji/tesko_oduzimanje_hover.png'" onmouseout="this.src='../public/nav/smedji/tesko_oduzimanje.png'"/></a>
 <img class="navbar_image" src="../public/nav/smedji/stup_kraj.png">
 
-<a href="/lagano-oduzimanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
-
 <script tema={{tema}} src="../public/brojevi/lagano_oduzimanje.js"></script>
 <div class="igra">
+    <a href="/lagano-oduzimanje"><img class="navbar_game" src="../public/nav/{{tema}}/igraj_ponovno.png"></a>
+    <a href="/lagano-oduzimanje/{{sljedecaTema}}"><img class="navbar_game" src="../public/nav/{{tema}}/promijeni_podlogu.png" ></a>
+
+    <a data-toggle="modal" data-target="#myModal"><img class="navbar_game" style="float:right" id="upute" src="../public/nav/{{tema}}/upute.png"> </a>
 
     <div class="konzola" id="laganoOduzimanje"></div>
-    <button type="button" class="btn btn-success predaj" onclick="myFunction()" id="rjesenje">PROVJERI</button>
+    <input class="navbar_game" type="image" src="../public/nav/{{tema}}/provjeri_rezultat.png" onclick="myFunction()" />
 </div>
