@@ -13,6 +13,20 @@
   /* TTF file for CSS3 browsers */
 }
 
+@font-face {
+  font-family:"LithosProBlack";
+  src: url('LithosPro-Black.ttf')  format('truetype'),
+  url('LithosPro-Black.woff2') format('woff2');
+  /* TTF file for CSS3 browsers */
+}
+
+@font-face {
+  font-family:"WickedMouseDemo";
+  src: url('Wicked Mouse Demo.ttf')  format('truetype'),
+  url('Wicked Mouse Demo.woff2') format('woff2');
+  /* TTF file for CSS3 browsers */
+}
+
 *{
   cursor: url("../images/pointer.png"), auto;
 }
@@ -71,4 +85,29 @@ a {
 }
 .navbar_game{
   height: 8%;
+}
+
+.modal-content{
+  background: url('../nav/OKVIR_UPUTE.png');
+}
+.modal-dialog{text-align:center;}
+.modal-content{
+  display:inline-block;
+  min-height: 556px;
+  min-width: 781px;
+}
+.close {
+  opacity: 1 !important;
+  margin-right: 2% !important;
+}
+
+.upute-naslov{
+  font-family: WickedMouseDemo;
+  font-size: 36px;
+  color: #FFFFFF;
+}
+.upute-tekst {
+  font-family: LithosProBlack;
+  font-size: 22px;
+  color: #FFFFFF;
 }
