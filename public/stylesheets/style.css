@@ -95,12 +95,14 @@ a {
 .modal-content{
   background: url('../nav/OKVIR_UPUTE.png');
 }
+
 .modal-dialog{text-align:center;}
 .modal-content{
   display:inline-block;
   min-height: 556px;
   min-width: 781px;
 }
+
 .close {
   opacity: 1 !important;
   margin-right: 2% !important;
@@ -111,8 +113,17 @@ a {
   font-size: 36px;
   color: #FFFFFF;
 }
+
 .upute-tekst {
   font-family: LithosProBlack;
   font-size: 22px;
   color: #FFFFFF;
+}
+
+*:focus {
+  outline: 0 !important;
+}
+
+.modal-content{
+  border-radius: 28px;
 }
