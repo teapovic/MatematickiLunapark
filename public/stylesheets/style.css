@@ -47,11 +47,13 @@ a {
 .pomocni {
   font-family: Heavitas2;
   font-size: 0px;
+  margin: 0;
 }
 
 .pomocni2 {
   font-family: NoMoreLies;
   font-size: 0px;
+  margin: 0;
 }
 
 .pozadina{
